@@ -95,15 +95,16 @@ pars_total = amounts['Total']
 full_ind_bills = [(phone,amount+shared_bill) for (phone,amount) in ind_bills]
 total_from_ind = reduce(add, [amount for (_,amount) in full_ind_bills], 0)
 if eq(total_from_ind,pars_total):
-  for (key,_) in full_ind_bills:
+  for (key,amount) in full_ind_bills:
     if key in details:
-      print(details[key] + '-' + key + ': $' +  str(amounts[key]))
+      print(details[key] + '-' + key + ': $' +  str(amount))
     else:
-      print(key + ': $' + str(amounts[key]))
+      print(key + ': $' + str(amount))
 else:
   print('Error: mismatch between computed total and parsed total. Parsed: $' + pars_total +
          ' Computed: $' + total_from_ind)
   exit(1)
+print('Total: $' + str(total_from_ind))
 
 os.remove(txt_bill_name)
 os.remove(tmp_name)
