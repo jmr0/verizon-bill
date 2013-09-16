@@ -1,3 +1,4 @@
+from __future__ import print_function
 import sys
 import math
 from functools import partial
@@ -95,16 +96,14 @@ pars_total = amounts['Total']
 full_ind_bills = [(phone,amount+shared_bill) for (phone,amount) in ind_bills]
 total_from_ind = reduce(add, [amount for (_,amount) in full_ind_bills], 0)
 if eq(total_from_ind,pars_total):
-  for (key,amount) in full_ind_bills:
-    if key in details:
-      print(details[key] + '-' + key + ': $' +  str(amount))
-    else:
-      print(key + ': $' + str(amount))
+  with open('out.txt','w') as out_bill:
+    for (phone,amount) in full_ind_bills:
+      print(phone + ': $' + str(amount),file=out_bill)
+    print("Total: $" + str(total_from_ind),file=out_bill)
 else:
   print('Error: mismatch between computed total and parsed total. Parsed: $' + pars_total +
          ' Computed: $' + total_from_ind)
   exit(1)
-print('Total: $' + str(total_from_ind))
 
 os.remove(txt_bill_name)
 os.remove(tmp_name)
