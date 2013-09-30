@@ -7,7 +7,7 @@ import os
 import re
 
 if len(sys.argv) < 2:
-  print('Usage: vzon.py <bill_name.txt>')
+  print('Usage: vzon.py <bill_name.pdf>')
   exit(1)
 
 name_ext=[]
